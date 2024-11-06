@@ -35,7 +35,7 @@ const OptimiztionMatrix = () => {
   return (
     <div className="bg-purple-100 ">
       <div className="flex">
-        {/* Top Left to right side Node   */}
+        {/* Top Left to right side   */}
         <div className="bg-purple-800 w-52 h-40 text-center pt-14">
           <h2 className="leading-none text-gray-500 font-bold">SIEMENS</h2>
           <h3 className="leading-none text-gray-500 font-bold">cncrgy</h3>
@@ -50,16 +50,14 @@ const OptimiztionMatrix = () => {
                 className="w-40 border p-2 border-gray-400 flex items-center justify-center"
                 key={item.title}
               >
-                {/* Condition use  */}
+                {/* Condition use Part  */}
                 {item?.title?.length <= 18 ? (
                   <>
                     <p className="text-sm font-semibold">{item?.title}</p>
                   </>
                 ) : (
                   <>
-                    {" "}
                     <p className="text-sm font-semibold">
-                      {" "}
                       {item?.title.slice(0, 16) + "..."}{" "}
                     </p>
                   </>
