@@ -35,7 +35,7 @@ const OptimiztionMatrix = () => {
   return (
     <div className="bg-purple-100 ">
       <div className="flex">
-        {/* Top Left to right side side bar show */}
+        {/* Top Left to right side   */}
         <div className="bg-purple-800 w-52 h-40 text-center pt-14">
           <h2 className="leading-none text-gray-500 font-bold">SIEMENS</h2>
           <h3 className="leading-none text-gray-500 font-bold">cncrgy</h3>
