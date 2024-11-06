@@ -70,7 +70,7 @@ const OptimiztionMatrix = () => {
         </div>
       </div>
 
-      {/* left side */}
+      {/* left sidebar  */}
       <div className="h-full w-52 bg-slate-50">
         <div className="flex items-center flex-col space-y-0 text-sm">
           <p className="bg-purple-950 w-full h-8 flex items-center justify-center text-gray-500">
