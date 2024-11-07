@@ -31,9 +31,10 @@ const OptimiztionMatrix = () => {
     { title: "Geopatial Visualization", num: 23 },
     { title: "Technology Features1", num: 24 },
     { title: "Technology Features2", num: 25 },
-    { title: "Technology Features3", num: 5 },
-    { title: "Technology Features3", num: 5 },
-    { title: "Technology Features1", num: 5 },
+    { title: "Technology Features3", num: 26 },
+    { title: "Technology Features3", num: 27 },
+    { title: "Technology Features1", num: 28 },
+    { title: "Ticketing System", num: 29 },
   ];
   const [isOpen, setIsOpen] = useState(false);
 
@@ -48,21 +49,26 @@ const OptimiztionMatrix = () => {
           </div>
         </div>
         <div className="w-52 hidden  lg:flex mt-[77px] items-center pt-[38px] flex-col space-y-0 text-sm -ml-[125px]  h-14 -rotate-90 ">
-          <p className="bg-purple-950 z-10 h-8 w-52  p-[14px] flex justify-end items-center text-gray-500">
+          <p className="bg-purple-950  text-[13px] z-10 h-8 w-52  p-[14px] flex justify-end items-center text-gray-500">
             Teachnology Features
           </p>
         </div>
-        <div className="bg-slate-50 w-full h-56 lg:flex hidden relative -ml-16">
-          <table className="border-collapse border border-slate-40 max-w-[500px]  absolute ">
+
+        <div className="bg-slate-50 w-full h-56 lg:flex hidden relative -ml-[63px]">
+          <table className="border-collapse border border-slate-40   absolute ">
             <thead>
               <tr>
                 {items.map((item, index) => (
                   <th
-                    className="border border-slate-400 h-36 border-b-green-600 border-b-4 text-center -rotate-90 whitespace-nowrap"
+                    className="border border-slate-400 h-36 border-b-green-600 border-b-4 vertical-text whitespace-nowrap"
                     key={index}
                   >
-                    <span className="text-[10px] font-normal p-0">
-                      {item?.title.slice(0, 5)}
+                    <span className="text-[14px] font-normal">
+                      {item?.title.length < 16 ? (
+                        <> {item?.title}</>
+                      ) : (
+                        <> {item?.title.slice(0, 16) + "..."}</>
+                      )}
                     </span>
                   </th>
                 ))}
@@ -89,7 +95,7 @@ const OptimiztionMatrix = () => {
                   >
                     {isOpen ? (
                       <>
-                        <IoMdArrowDropup />
+                        <IoMdArrowDropup className="text-2xl font-bold text-gray-500" />
                       </>
                     ) : (
                       <>
@@ -119,11 +125,11 @@ const OptimiztionMatrix = () => {
       </div>
 
       {/* left sidebar  */}
-      <div className="h-full  w-[253px] bg-slate-50 -mt-[39px] hidden lg:flex">
+      <div className="h-full  w-[254px] bg-slate-50 -mt-[39px] hidden lg:flex">
         <div className="z-20">
-          <table className="border-collapse border  border-slate-400 ...">
+          <table className="border-collapse border  border-slate-400">
             <thead>
-              <tr className="bg-purple-900 h-8">
+              <tr className="bg-purple-900 h-8 ">
                 <th className="border border-purple-800 text-gray-400">
                   Initiatives
                 </th>
