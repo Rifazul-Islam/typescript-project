@@ -1,5 +1,7 @@
+import { useState } from "react";
 import "./OptimiztionMatrix.css";
 import { MdOutlineArrowDropDown } from "react-icons/md";
+import { IoIosArrowForward, IoMdArrowDropup } from "react-icons/io";
 const OptimiztionMatrix = () => {
   const items: { title: string; num: number }[] = [
     { title: "Incident Management", num: 1 },
@@ -23,7 +25,7 @@ const OptimiztionMatrix = () => {
     { title: "Accounting", num: 18 },
     { title: "Controlling", num: 19 },
     { title: "Strategic Eenterprisements", num: 20 },
-    { title: "WareHouse Management", num: 21 },
+    { title: "WareHouse", num: 21 },
     { title: "Procourement", num: 21 },
     { title: "Geospatial Analytics", num: 22 },
     { title: "Geopatial Visualization", num: 23 },
@@ -33,21 +35,24 @@ const OptimiztionMatrix = () => {
     { title: "Technology Features3", num: 5 },
     { title: "Technology Features1", num: 5 },
   ];
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-purple-100 ">
-      <div className="flex">
+    <div className="bg-purple-100 relative">
+      <div className="flex relative">
         {/* Top Left to right side Node   */}
-        <div className="bg-purple-800 w-56 h-40 text-center pt-14">
-          <h2 className="leading-none text-gray-500 font-bold">SIEMENS</h2>
-          <h3 className="leading-none text-gray-500 font-bold">cncrgy</h3>
+        <div className="bg-purple-800 w-full lg:w-72 h-48  text-center pt-14 flex items-center justify-center">
+          <div>
+            <h2 className="leading-none text-gray-500 font-bold">SIEMENS</h2>
+            <h3 className="leading-none text-gray-500 font-bold">cncrgy</h3>
+          </div>
         </div>
-        <div className="w-52 flex mt-[53px] items-center pt-[50px] flex-col space-y-0 text-sm -ml-[114px]  h-14 -rotate-90 ">
-          <p className="bg-purple-950 h-8 p-[14px] flex items-center text-gray-500">
+        <div className="w-52 hidden  lg:flex mt-[77px] items-center pt-[38px] flex-col space-y-0 text-sm -ml-[125px]  h-14 -rotate-90 ">
+          <p className="bg-purple-950 z-10 h-8 w-52  p-[14px] flex justify-end items-center text-gray-500">
             Teachnology Features
           </p>
         </div>
-        <div className="bg-slate-50 w-full h-56 lg:flex hidden relative -ml-8">
+        <div className="bg-slate-50 w-full h-56 lg:flex hidden relative -ml-16">
           <table className="border-collapse border border-slate-40 max-w-[500px]  absolute ">
             <thead>
               <tr>
@@ -78,15 +83,24 @@ const OptimiztionMatrix = () => {
               <tr>
                 {items.map((item, index) => (
                   <td
-                    className="border border-slate-300 text-center p-2"
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="border border-slate-300 text-center p-[3px] cursor-pointer"
                     key={index}
                   >
-                    <MdOutlineArrowDropDown className="text-2xl font-bold text-gray-500" />
+                    {isOpen ? (
+                      <>
+                        <IoMdArrowDropup />
+                      </>
+                    ) : (
+                      <>
+                        <MdOutlineArrowDropDown className="text-2xl font-bold text-gray-500" />
+                      </>
+                    )}
                   </td>
                 ))}
               </tr>
 
-              {Array.from({ length: 20 }).map((_, rowIndex) => (
+              {Array.from({ length: 28 }).map((_, rowIndex) => (
                 <tr key={rowIndex}>
                   {items.map((item, index) => (
                     <td
@@ -99,41 +113,60 @@ const OptimiztionMatrix = () => {
             </tbody>
           </table>
         </div>
+        <p className="bg-black lg:flex hidden font-bold text-white absolute top-[153px] left-[224px] p-1 ">
+          UT
+        </p>
       </div>
 
       {/* left sidebar  */}
-      <div className="h-full w-[215px] bg-slate-50 -mt-16">
-        <div className="flex items-center flex-col space-y-0 text-sm">
-          <p className="bg-purple-950 w-full h-8 flex items-center justify-center text-gray-500">
-            Initiatives
-          </p>
-          {items?.slice(0, 14).map((item) => (
-            <div
-              className="w-full border p-1 border-gray-400 flex items-center justify-between"
-              key={item.title}
-            >
-              <div>
-                <h2 className="text-sm text-gray-500"> Mange Safety</h2>
-                {/* Condition use  */}
-                {item?.title?.length <= 14 ? (
-                  <>
-                    <p className="text-sm font-semibold">{item?.title}</p>
-                  </>
-                ) : (
-                  <div>
-                    <p className="text-sm font-semibold">
-                      {item?.title.slice(0, 13) + "..."}
+      <div className="h-full  w-[253px] bg-slate-50 -mt-[39px] hidden lg:flex">
+        <div className="z-20">
+          <table className="border-collapse border  border-slate-400 ...">
+            <thead>
+              <tr className="bg-purple-900 h-8">
+                <th className="border border-purple-800 text-gray-400">
+                  Initiatives
+                </th>
+                <th className="border border-slate-800 text-white w-8 bg-black">
+                  BV
+                </th>
+                <th className="border text-white border-slate-800 w-8 bg-purple-500">
+                  VP
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {items?.map((item, index) => (
+                <tr key={index}>
+                  <td className="border-[1px]  flex items-center p-0.5 justify-between ">
+                    <p className="flex flex-col">
+                      <span className="leading-none text-[11px] text-gray-700">
+                        Manage Safety
+                      </span>
+                      <span className="leading-none text-sm ">
+                        {item?.title.length < 14 ? (
+                          <>{item?.title}</>
+                        ) : (
+                          <>{item?.title.slice(0, 16) + "..."}</>
+                        )}
+                      </span>
                     </p>
-                  </div>
-                )}
-              </div>
-              <div>
-                <button className="bg-fuchsia-200  px-4 py-1 rounded-3xl">
-                  0 + 1
-                </button>
-              </div>
-            </div>
-          ))}
+
+                    <span className="bg-fuchsia-200  rounded-3xl flex items-center justify-between px-2">
+                      0
+                      <IoIosArrowForward className="text-fuchsia-500 " />1
+                    </span>
+                  </td>
+                  <td className="border border-slate-300 border-l-4 border-l-yellow-400 text-center font-bold">
+                    {item?.num}
+                  </td>
+                  <td className="border border-slate-300 text-center text-xl font-bold">
+                    <MdOutlineArrowDropDown />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -141,31 +174,3 @@ const OptimiztionMatrix = () => {
 };
 
 export default OptimiztionMatrix;
-
-{
-  /* <div className="w-52 flex items-center flex-col space-y-0 text-sm -ml-20  h-14 -rotate-90 ">
-            <p className="bg-purple-950 h-8 p-[14px] flex items-center text-gray-500">
-              Teachnology Features
-            </p>
-            {items?.map((item) => (
-              <div
-                className="w-40 border p-2 border-gray-400 flex items-center justify-center"
-                key={item.title}
-              >
-                {item?.title?.length <= 18 ? (
-                  <>
-                    <p className="text-sm font-semibold">{item?.title}</p>
-                  </>
-                ) : (
-                  <>
-                    {" "}
-                    <p className="text-sm font-semibold">
-                      {" "}
-                      {item?.title.slice(0, 16) + "..."}{" "}
-                    </p>
-                  </>
-                )}
-              </div>
-            ))}
-          </div> */
-}
