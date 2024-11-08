@@ -207,7 +207,13 @@ const OptimiztionMatrix = () => {
                               key={index}
                               onClick={() => setNumberStore(index + 1)}
                             >
-                              {index + 1}
+                              {numberStore === index + 1 ? (
+                                <p className="bg-purple-200"> {index + 1}</p>
+                              ) : (
+                                <p className="border border-gray-400">
+                                  {index + 1}
+                                </p>
+                              )}
                             </p>
                           ))}
                         </div>
@@ -221,7 +227,7 @@ const OptimiztionMatrix = () => {
               </tr>
 
               {/* Emty table row and column use this array like object */}
-              {Array.from({ length: 28 }).map((_, rowIndex) => (
+              {Array.from({ length: 36 }).map((_, rowIndex) => (
                 <tr key={rowIndex}>
                   {items.map((item, index) => (
                     <td
@@ -303,9 +309,11 @@ const OptimiztionMatrix = () => {
                         <span className="text-[28px] absolute text-red-700 pl-[210px]  h-full  shadow-2xl">
                           <IoIosCloseCircleOutline />
                         </span>
-                        <h2 className="pr-8 text-lg font-semibold p-4">
-                          {item.title}
-                        </h2>
+
+                        <div className="pr-8 text-lg font-semibold p-4">
+                          <p className="text-sm font-normal">Manage Safety</p>
+                          <h2> {item.title}</h2>
+                        </div>
                         <div className="border-r-[0.5px] mr-4 flex justify-between p-4">
                           <p>Custom</p> <p>Data</p>
                         </div>
@@ -353,7 +361,13 @@ const OptimiztionMatrix = () => {
                               key={index}
                               onClick={() => setNumberStore(index + 1)}
                             >
-                              {index + 1}
+                              {numberStore === index + 1 ? (
+                                <p className="bg-purple-200"> {index + 1}</p>
+                              ) : (
+                                <p className="border border-gray-400">
+                                  {index + 1}
+                                </p>
+                              )}
                             </p>
                           ))}
                         </div>
