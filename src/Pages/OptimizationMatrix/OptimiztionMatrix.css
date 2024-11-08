@@ -3,3 +3,8 @@
   writing-mode: vertical-rl;
   text-orientation: mixed;
 }
+
+.vertical {
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+}
