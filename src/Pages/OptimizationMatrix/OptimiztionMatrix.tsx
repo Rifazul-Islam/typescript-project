@@ -9,54 +9,68 @@ import {
 
 const OptimiztionMatrix = () => {
   // This A array Object
-  const items: { title: string; num: number }[] = [
-    { title: "Incident Management", num: 1 },
-    { title: "Managements", num: 2 },
-    { title: "System Visualization", num: 3 },
-    { title: "Actuator Control", num: 4 },
-    { title: "Realtime Analytics", num: 5 },
-    { title: "Predictive Analysis", num: 6 },
-    { title: "Operational Data Management", num: 7 },
-    { title: "Segment Operatons", num: 8 },
-    { title: "Operational Schements", num: 9 },
-    { title: "Control (tralnsmissions)", num: 10 },
-    { title: "Alarms and Events Ments", num: 11 },
-    { title: " Status (transsmission)", num: 12 },
-    { title: "Custormer Informations", num: 13 },
-    { title: "Bill Managemnts", num: 14 },
-    { title: "Reporting (CIS)", num: 15 },
-    { title: "Self-Services Center", num: 16 },
-    { title: "Ticketing System", num: 17 },
-    { title: "Accounting", num: 18 },
-    { title: "Controlling", num: 19 },
-    { title: "Strategic Eenterprisements", num: 20 },
-    { title: "WareHouse", num: 21 },
-    { title: "Geospatial Analytics", num: 22 },
-    { title: "Geopatial Visualization", num: 23 },
-    { title: "Technology Features1", num: 24 },
-    { title: "Technology Features2", num: 25 },
-    { title: "Technology Features3", num: 26 },
-    { title: "Technology Features3", num: 27 },
-    { title: "Technology Features1", num: 28 },
-    { title: "Ticketing System", num: 29 },
-    { title: "Technology Features3", num: 30 },
-    { title: "Technology Features1", num: 31 },
-  ];
+  const [items, setItems] = useState<
+    { title: string; num: number; id: number; value: number }[]
+  >([
+    { title: "Incident Management", num: 1, id: 1, value: 0 },
+    { title: "Managements", num: 2, id: 2, value: 0 },
+    { title: "System Visualization", num: 3, id: 3, value: 0 },
+    { title: "Actuator Control", num: 4, id: 4, value: 0 },
+    { title: "Realtime Analytics", num: 5, id: 5, value: 0 },
+    { title: "Predictive Analysis", num: 6, id: 6, value: 0 },
+    { title: "Operational Data Management", num: 7, id: 7, value: 0 },
+    { title: "Segment Operatons", num: 8, id: 8, value: 0 },
+    { title: "Operational Schements", num: 9, id: 9, value: 0 },
+    { title: "Control (tralnsmissions)", num: 10, id: 10, value: 0 },
+    { title: "Alarms and Events Ments", num: 11, id: 11, value: 0 },
+    { title: "Status (transsmission)", num: 12, id: 12, value: 0 },
+    { title: "Custormer Informations", num: 13, id: 13, value: 0 },
+    { title: "Bill Managemnts", num: 14, id: 14, value: 0 },
+    { title: "Reporting (CIS)", num: 15, id: 15, value: 0 },
+    { title: "Self-Services Center", num: 16, id: 16, value: 0 },
+    { title: "Ticketing System", num: 17, id: 17, value: 0 },
+    { title: "Accounting", num: 18, id: 18, value: 0 },
+    { title: "Controlling", num: 19, id: 19, value: 0 },
+    { title: "Strategic Eenterprisements", num: 20, id: 20, value: 0 },
+    { title: "WareHouse", num: 21, id: 21, value: 0 },
+    { title: "Geospatial Analytics", num: 22, id: 22, value: 0 },
+    { title: "Geopatial Visualization", num: 23, id: 23, value: 0 },
+    { title: "Technology Features1", num: 24, id: 24, value: 0 },
+    { title: "Technology Features2", num: 25, id: 25, value: 0 },
+    { title: "Technology Features3", num: 26, id: 26, value: 0 },
+    { title: "Technology Features3", num: 27, id: 27, value: 0 },
+    { title: "Technology Features1", num: 28, id: 28, value: 0 },
+    { title: "Ticketing System", num: 29, id: 29, value: 0 },
+    { title: "Technology Features3", num: 30, id: 30, value: 0 },
+    { title: "Technology Features1", num: 31, id: 31, value: 0 },
+  ]);
+
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  // value update Function this porpuse
+  const updateValue = (id: number, newValue: number) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, value: newValue } : item
+      )
+    );
+
+    setOpenIndex(openIndex === id ? null : id);
+  };
 
   // For Top Side use This Sistem
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   const [openIndexs, setOpenIndexs] = useState<number | null>(null);
+  const [numberStore, setNumberStore] = useState<number | null>(null);
 
   //  Toggle the specific cell when clicked // table head th for use this function
-  const handleCellClick = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  // const handleCellClick = (index: number) => {
+  //   setOpenIndex(openIndex === index ? null : index);
+  // };
 
   // tr use roated Number PerPuse This Function
   const handleCellClicks = (index: number) => {
     setOpenIndexs(openIndexs === index ? null : index);
   };
-  const [numberStore, setNumberStore] = useState<number | null>(null);
 
   // =================== Left Side ================
 
@@ -186,44 +200,51 @@ const OptimiztionMatrix = () => {
               <tr>
                 {items.map((item) => (
                   <td
-                    onClick={() => handleCellClick(item?.num)}
+                    onClick={() => updateValue(item.id, item.value + 0)} // Increment value by 1 when clicked
                     className="border border-slate-300 text-center p-[3px] cursor-pointer"
                     key={item.num}
                   >
-                    {openIndex === item?.num ? (
+                    {openIndex === item.num ? (
                       <div className="relative flex items-center justify-center">
                         <div className="absolute -top-4 bg-slate-100 border border-purple-700 w-9 text-black text-center">
-                          {/* Close button */}
-
-                          {numberStore ? (
-                            <p className="text-lg mx-auto font-bold text-gray-200 bg-purple-800 w-full">
-                              {numberStore}
-                            </p>
-                          ) : (
+                          {/* Display the value or icon conditionally */}
+                          {item.value === 0 ? (
                             <IoMdArrowDropup className="text-2xl mx-auto font-bold text-gray-200 bg-purple-800 w-full" />
+                          ) : (
+                            <p className="text-lg mx-auto font-bold bg-purple-800 text-white w-full">
+                              {item.value}
+                            </p>
                           )}
-                          {Array.from({ length: 7 }).map((_, index) => (
+
+                          {/* Dropdown list */}
+                          {Array.from({ length: 8 }).map((_, index) => (
                             <p
                               key={index}
-                              onClick={() => setNumberStore(index + 1)}
+                              onClick={(e) => {
+                                e.stopPropagation(); // Prevents triggering the parent onClick
+                                setNumberStore(index);
+                                updateValue(item.id, index); // Update the item value with the selected index
+                              }}
+                              className={
+                                numberStore === index
+                                  ? "bg-purple-200"
+                                  : "border border-gray-400"
+                              }
                             >
-                              {numberStore === index + 1 ? (
-                                <p className="bg-purple-200"> {index + 1}</p>
-                              ) : (
-                                <p className="border border-gray-400">
-                                  {index + 1}
-                                </p>
-                              )}
+                              {index}
                             </p>
                           ))}
                         </div>
                       </div>
-                    ) : (
+                    ) : item.value === 0 ? (
+                      // Display the arrow icon if the value is 0 and dropdown is not open
                       <MdOutlineArrowDropDown className="text-2xl font-bold text-gray-500" />
+                    ) : (
+                      // Display the value if it's greater than 0
+                      <p className="text-lg font-bold">{item.value}</p>
                     )}
                   </td>
                 ))}
-                {}
               </tr>
 
               {/* Emty table row and column use this array like object */}
