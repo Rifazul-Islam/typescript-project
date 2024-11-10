@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./OptimiztionMatrix.css";
 import { MdOutlineArrowDropDown } from "react-icons/md";
 import {
@@ -87,6 +87,33 @@ const OptimiztionMatrix = () => {
     setOpenIndexLefts(openIndexLefts === index ? null : index);
   };
 
+  // model opening and close porpuse state use
+  // const [openModalLeft, setOpenModelLeft] = useState(false);
+
+  // Modle close porpuse use
+  const modalRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setOpenIndexLefts(null);
+        setOpenIndexs(null);
+      }
+    }
+
+    // Add event listener if either `openIndexLefts` or `numberStore` is set
+    if (openIndexLefts !== null || openIndexs !== null) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    // Cleanup the event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [openIndexLefts, openIndexs, setOpenIndexLefts, setOpenIndexs]);
   return (
     <div className="bg-purple-100 relative">
       <div className="flex relative">
@@ -116,7 +143,9 @@ const OptimiztionMatrix = () => {
               <tr>
                 {items.map((item, index) => (
                   <th
-                    onClick={() => handleCellClicks(item?.num)}
+                    onClick={() => {
+                      handleCellClicks(item?.num);
+                    }}
                     className={`border border-slate-400 ${
                       openIndexs === item?.num &&
                       "border-b-4 border-b-green-700"
@@ -149,8 +178,10 @@ const OptimiztionMatrix = () => {
                     )}
 
                     {/* this is Modal design  */}
+
                     {openIndexs === item?.num && (
                       <div
+                        ref={modalRef}
                         className={`absolute  ${
                           openIndexs === 28 ||
                           openIndexs === 29 ||
@@ -166,11 +197,8 @@ const OptimiztionMatrix = () => {
                           openIndexs === 5
                             ? "-left-48"
                             : ""
-                        }  bg-[#fff] rotate-90 -top-[227px] -left-14  border-green-400 shadow-xl -z-50 `}
+                        }  bg-[#fff] rotate-90 -top-[227px] -left-14  border-green-400  -z-50 `}
                       >
-                        <span className="text-[28px] absolute text-red-700  flex items-center justify-end h-full mt-0.5 -mr-1 shadow-2xl">
-                          <IoIosCloseCircleOutline />
-                        </span>
                         <h2 className="pr-8 text-lg font-semibold p-4">
                           {item.title}
                         </h2>
@@ -269,7 +297,7 @@ const OptimiztionMatrix = () => {
       </div>
 
       {/* left sidebar  */}
-      <div className="h-full  w-[254px] bg-slate-50 -mt-[39px] hidden lg:flex">
+      <div className="h-full w-[254px] bg-slate-50 -mt-[39px] hidden lg:flex">
         <div className="z-10">
           {/* This Table Part */}
           <table className="border-collapse border  border-slate-400">
@@ -291,7 +319,9 @@ const OptimiztionMatrix = () => {
                 <tr key={index}>
                   {/* left side Title show  */}
                   <td
-                    onClick={() => handleCellClickLefts(item?.num)}
+                    onClick={() => {
+                      handleCellClickLefts(item?.num);
+                    }}
                     className={`border border-r-4 border-r-yellow-300 border-slate-300  ${
                       openIndexLefts === item?.num &&
                       "border-r-4 border-r-yellow-600 bg-yellow-100"
@@ -316,8 +346,10 @@ const OptimiztionMatrix = () => {
                     </span>
 
                     {/* this is Modal design  */}
+
                     {openIndexLefts === item?.num && (
                       <div
+                        ref={modalRef}
                         className={`absolute  ${
                           openIndexLefts === 28 ||
                           openIndexLefts === 29 ||
@@ -325,7 +357,7 @@ const OptimiztionMatrix = () => {
                           openIndexLefts === 31
                             ? "left-20"
                             : ""
-                        }   border w-60 h-36 -top-0.5 bg-[#fff] left-48 z-20  border-yellow-400 shadow-xl `}
+                        }   border w-60   bg-[#fff] left-48  border-yellow-400`}
                       >
                         <span className="text-[28px] absolute text-red-700 pl-[210px]  h-full  shadow-2xl">
                           <IoIosCloseCircleOutline />
