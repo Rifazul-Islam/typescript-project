@@ -1,11 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./OptimiztionMatrix.css";
 import { MdOutlineArrowDropDown } from "react-icons/md";
-import {
-  IoIosArrowForward,
-  IoIosCloseCircleOutline,
-  IoMdArrowDropup,
-} from "react-icons/io";
+import { IoIosArrowForward, IoMdArrowDropup } from "react-icons/io";
 
 const OptimiztionMatrix = () => {
   // This A array Object
@@ -62,11 +58,6 @@ const OptimiztionMatrix = () => {
   const [openIndexs, setOpenIndexs] = useState<number | null>(null);
   const [numberStore, setNumberStore] = useState<number | null>(null);
 
-  //  Toggle the specific cell when clicked // table head th for use this function
-  // const handleCellClick = (index: number) => {
-  //   setOpenIndex(openIndex === index ? null : index);
-  // };
-
   // tr use roated Number PerPuse This Function
   const handleCellClicks = (index: number) => {
     setOpenIndexs(openIndexs === index ? null : index);
@@ -88,7 +79,6 @@ const OptimiztionMatrix = () => {
   };
 
   // model opening and close porpuse state use
-  // const [openModalLeft, setOpenModelLeft] = useState(false);
 
   // Modle close porpuse use
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -101,11 +91,12 @@ const OptimiztionMatrix = () => {
       ) {
         setOpenIndexLefts(null);
         setOpenIndexs(null);
+        setOpenIndex(null);
       }
     }
 
     // Add event listener if either `openIndexLefts` or `numberStore` is set
-    if (openIndexLefts !== null || openIndexs !== null) {
+    if (openIndexLefts !== null || openIndexs !== null || openIndex !== null) {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
@@ -113,7 +104,19 @@ const OptimiztionMatrix = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [openIndexLefts, openIndexs, setOpenIndexLefts, setOpenIndexs]);
+  }, [
+    openIndexLefts,
+    openIndexs,
+    setOpenIndexLefts,
+    setOpenIndexs,
+    setOpenIndex,
+    openIndex,
+  ]);
+
+  // Sorting sistem emplement
+  const sortedItems = items.sort((a, b) => b.value - a.value);
+  // console.log(sortedItems);
+
   return (
     <div className="bg-purple-100 relative">
       <div className="flex relative">
@@ -141,7 +144,7 @@ const OptimiztionMatrix = () => {
           <table className="border-collapse border border-slate-40 absolute ">
             <thead>
               <tr>
-                {items.map((item, index) => (
+                {sortedItems.map((item, index) => (
                   <th
                     onClick={() => {
                       handleCellClicks(item?.num);
@@ -215,12 +218,12 @@ const OptimiztionMatrix = () => {
             <tbody>
               {/* // Mapping this Number show porpuse */}
               <tr>
-                {items.map((item, index) => (
+                {items.map((_, index) => (
                   <td
                     className="border border-slate-300  text-center p-2 font-bold"
                     key={index}
                   >
-                    {item?.num}
+                    {index + 1}
                   </td>
                 ))}
               </tr>
@@ -229,11 +232,14 @@ const OptimiztionMatrix = () => {
                 {items.map((item) => (
                   <td
                     onClick={() => updateValue(item.id, item.value + 0)} // Increment value by 1 when clicked
-                    className="border border-slate-300 text-center p-[3px] cursor-pointer"
+                    className="border border-slate-300 text-center p-[3px] cursor-pointer "
                     key={item.num}
                   >
-                    {openIndex === item.num ? (
-                      <div className="relative flex items-center justify-center">
+                    {openIndex === item?.num ? (
+                      <div
+                        ref={modalRef}
+                        className="relative flex items-center justify-center"
+                      >
                         <div className="absolute -top-4 bg-slate-100 border border-purple-700 w-9 text-black text-center">
                           {/* Display the value or icon conditionally */}
                           {item.value === 0 ? (
@@ -253,11 +259,11 @@ const OptimiztionMatrix = () => {
                                 setNumberStore(index);
                                 updateValue(item.id, index); // Update the item value with the selected index
                               }}
-                              className={
-                                numberStore === index
+                              className={`${
+                                item?.value === index
                                   ? "bg-purple-200"
                                   : "border border-gray-400"
-                              }
+                              }`}
                             >
                               {index}
                             </p>
@@ -290,7 +296,7 @@ const OptimiztionMatrix = () => {
           </table>
         </div>
 
-        {/* It is Position porpuse use */}
+        {/* It is Position porpuse use UT */}
         <p className="bg-black lg:flex hidden font-bold text-white absolute top-[146px] left-[224px] p-1 ">
           UT
         </p>
@@ -359,10 +365,6 @@ const OptimiztionMatrix = () => {
                             : ""
                         }   border w-60   bg-[#fff] left-48  border-yellow-400`}
                       >
-                        <span className="text-[28px] absolute text-red-700 pl-[210px]  h-full  shadow-2xl">
-                          <IoIosCloseCircleOutline />
-                        </span>
-
                         <div className="pr-8 text-lg font-semibold p-4">
                           <p className="text-sm font-normal">Manage Safety</p>
                           <h2> {item.title}</h2>
